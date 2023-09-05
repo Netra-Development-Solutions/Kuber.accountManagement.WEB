@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import { get } from '../../utils/apiHelper';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Button, Grid, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import CreditCardSummaryComponent from '../summary/CreditCard';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -49,6 +51,7 @@ export default function CreditCardAccountDetails() {
     const [expanded, setExpanded] = React.useState('panel1');
     const [refresh, setRefresh] = React.useState(true);
     const [creditCards, setCreditCards] = React.useState([]);
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         if (refresh) {
@@ -101,15 +104,10 @@ export default function CreditCardAccountDetails() {
                         <Accordion key={creditCard._id} expanded={expanded === creditCard._id} onChange={handleChange(creditCard._id)}>
                             <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                                 <Typography>{creditCard.cardName}</Typography>
-                                <Typography sx={{ color: 'text.secondary', float: 'right' }}>{creditCard.balance}</Typography>
+                                {/* <Typography sx={{ color: 'text.secondary', float: 'right' }}>{creditCard.balance}</Typography> */}
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                    malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                                    sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                    sit amet blandit leo lobortis eget.
-                                </Typography>
+                                <CreditCardSummaryComponent creditCard={creditCard} />
                             </AccordionDetails>
                         </Accordion>
 
@@ -118,10 +116,12 @@ export default function CreditCardAccountDetails() {
             }
             <Grid container spacing={2} style={{ marginTop: '0px', flexDirection: 'row-reverse' }}>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Button variant="contained" fullWidth onClick={() => setRefresh(true)}>Add New</Button>
+                    <Button variant="contained" fullWidth onClick={() => {
+                        navigate('/dashboard/accounts/credit');
+                    }}>Add New</Button>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Button variant="contained" color="error" fullWidth onClick={() => setRefresh(true)}>Delete</Button>
+                    <Button disabled variant="contained" color="error" fullWidth onClick={() => setRefresh(true)}>Delete</Button>
                 </Grid>
             </Grid>
         </Paper>
