@@ -5,10 +5,15 @@ import routes from "./routes";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import "./index.css";
+import { Container } from "@mui/material";
+import AccountDetails from "./components/AccountDetails";
 
 function App() {
   return (
-      <RouterProvider router={createBrowserRouter(routes)} />
+      // <RouterProvider router={createBrowserRouter(routes)} />
+      <Container>
+        <AccountDetails />
+      </Container>
   );
 }
 
