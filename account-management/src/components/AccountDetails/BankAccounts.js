@@ -7,7 +7,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { get } from '../../utils/apiHelper';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Paper } from '@mui/material';
+import { Box, Button, Grid, Paper } from '@mui/material';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -81,13 +81,20 @@ export default function BankAccountDetails() {
         <Paper elevation={3} style={{
             padding: '1rem',
         }}>
-            <Typography variant="h6" gutterBottom component="div">
-                Bank Accounts
-                <RefreshIcon style={{
-                    float: 'right',
-                    cursor: 'pointer',
-                }} onClick={() => setRefresh(true)} />
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6" gutterBottom component="div">
+                    Bank Accounts
+                </Typography>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant='body1' gutterBottom component='div'>
+                        <RefreshIcon style={{
+                            float: 'right',
+                            cursor: 'pointer',
+                        }} onClick={() => setRefresh(true)} />
+                    </Typography>
+                </Box>
+            </Box>
             {
                 bankAccounts.map((bankAccount, index) => {
                     return (
@@ -108,6 +115,14 @@ export default function BankAccountDetails() {
                     )
                 })
             }
+                        <Grid container spacing={2} style={{ marginTop: '0px', flexDirection: 'row-reverse' }}>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <Button variant="contained" fullWidth onClick={() => setRefresh(true)}>Add New</Button>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <Button variant="contained" color="error" fullWidth onClick={() => setRefresh(true)}>Delete</Button>
+                </Grid>
+            </Grid>
         </Paper>
     );
 }
