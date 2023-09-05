@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import { get } from '../../utils/apiHelper';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Button, Grid, Paper } from '@mui/material';
+import BankSummaryComponent from '../summary/Bank';
+import { useNavigate } from 'react-router-dom';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -47,6 +49,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function BankAccountDetails() {
     const [expanded, setExpanded] = React.useState('panel1');
+    const navigate = useNavigate();
     const [refresh, setRefresh] = React.useState(true);
     const [bankAccounts, setBankAccounts] = React.useState([]);
 
@@ -101,15 +104,10 @@ export default function BankAccountDetails() {
                         <Accordion key={bankAccount._id} expanded={expanded === bankAccount._id} onChange={handleChange(bankAccount._id)}>
                             <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                                     <Typography>{bankAccount.accountName}</Typography>
-                                    <Typography sx={{ color: 'text.secondary', float: 'right' }}>{bankAccount.balance}</Typography>
+                                    {/* <Typography sx={{ color: 'text.secondary', float: 'right' }}>{bankAccount.balance}</Typography> */}
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                    malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                                    sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                    sit amet blandit leo lobortis eget.
-                                </Typography>
+                                <BankSummaryComponent bankAccount={bankAccount} />
                             </AccordionDetails>
                         </Accordion>
                     )
@@ -117,10 +115,12 @@ export default function BankAccountDetails() {
             }
                         <Grid container spacing={2} style={{ marginTop: '0px', flexDirection: 'row-reverse' }}>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Button variant="contained" fullWidth onClick={() => setRefresh(true)}>Add New</Button>
+                    <Button variant="contained" fullWidth onClick={() => {
+                        navigate("/dashboard/accounts/bank");
+                    }}>Add New</Button>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Button variant="contained" color="error" fullWidth onClick={() => setRefresh(true)}>Delete</Button>
+                    <Button disabled variant="contained" color="error" fullWidth onClick={() => setRefresh(true)}>Delete</Button>
                 </Grid>
             </Grid>
         </Paper>
