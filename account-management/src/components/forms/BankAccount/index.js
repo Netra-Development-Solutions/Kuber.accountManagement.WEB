@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import { post } from "../../../utils/apiHelper";
 
 export default function BankAccountForm({ bankAccount }) {
 
@@ -29,6 +30,7 @@ export default function BankAccountForm({ bankAccount }) {
         validationSchema: yupValidationSchema,
         onSubmit: (values, actions) => {
             console.log(values);
+            post('http://localhost:4000/BANK/create-account', localStorage.getItem('token'), values)
             actions.setSubmitting(false);
         }
     });

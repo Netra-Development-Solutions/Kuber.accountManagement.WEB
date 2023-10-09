@@ -4,11 +4,15 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:3003/",
+    publicPath: "https://test-blob.s3.ap-south-1.amazonaws.com/plugins/account-management/1.0.0/",
   },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+  },
+
+  optimization: {
+    chunkIds: "named",
   },
 
   devServer: {
