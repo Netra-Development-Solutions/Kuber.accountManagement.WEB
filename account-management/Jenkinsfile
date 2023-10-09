@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         aws_credential = 'AWS_S3_CRED'
-        repo_url = "https://github.com/Netra-Development-Solutions/Kuber.userManagement.WEB"
+        repo_url = "https://github.com/Netra-Development-Solutions/Kuber.accountManagement.WEB"
         bucket = "test-blob"
         region = "ap-south-1"
         plugin_name = "account-management"
